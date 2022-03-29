@@ -9,8 +9,6 @@ cursor = conn.cursor()
 
 esc = input("Escolha oque ira fazer \n1- Adicionar \n2- Atualizar \n3- Deletar\n Ou qualquer coisa para sair\n ")
 
-
-
 if esc == 1:
     data_entrada = datetime.datetime.now()
     codigo = input("Codigo: ")
@@ -40,7 +38,6 @@ elif esc == 3:
     
 else:
     quit()
-
 
 conn.close()
 quit()
