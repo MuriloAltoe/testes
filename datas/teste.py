@@ -1,24 +1,27 @@
-from datetime import date, datetime
 from distutils.util import execute
-import sqlite3
 from webbrowser import get
+from datetime import date, datetime
+from tkinter.tix import Select
 import datetime
+import sqlite3
 
 conn = sqlite3.connect('teste.db')
 cursor = conn.cursor()
 
-esc = input("Escolha oque ira fazer \n1- Adicionar \n2- Atualizar \n3- Deletar\n Ou qualquer coisa para sair\n ")
+esc = input("Escolha oque ira fazer \n1- Adicionar \n2- Atualizar \n3- Deletar \n4- Exibir\nOu qualquer coisa para sair\n ")
 
-if esc == 1:
+if esc == '1':
     data_entrada = datetime.datetime.now()
     codigo = input("Codigo: ")
     data_saida = datetime.datetime.now()
     cursor.execute("INSERT INTO registro (codigo, data_entrada, data_saida) VALUES (?, ?, ?)", (codigo, data_entrada, data_saida))
     conn.commit()
+    print("Atualizado")
     cursor.execute("SELECT * FROM REGISTRO ORDER BY codigo")
     print(cursor.fetchall())
 
-elif esc == 2:
+
+elif esc == '2':
     data_entrada = datetime.datetime.now()
     codigo = input("Codigo: ")
     data_saida = datetime.datetime.now()
@@ -28,16 +31,28 @@ elif esc == 2:
     cursor.execute("SELECT * FROM REGISTRO ORDER BY codigo")
     print(cursor.fetchall())
 
-elif esc == 3:
+
+elif esc == '3':
     codigo = input("Codigo: ")
     cursor.execute("DELETE FROM registro WHERE codigo=?", (codigo))
     conn.commit()
     print("Deletado")
     cursor.execute("SELECT * FROM REGISTRO ORDER BY codigo")
     print(cursor.fetchall())
+        
+        
+        
+elif esc == '4':
+    codigo = input("Codigo: ")
+    cursor.execute("SELECT * FROM registro WHERE codigo=?", (codigo))
+    conn.commit()
+    print(cursor.fetchall())
+    
     
 else:
+    conn.close()
     quit()
 
 conn.close()
 quit()
+
